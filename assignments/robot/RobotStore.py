@@ -1,13 +1,3 @@
-#product_names = ["Ultrasonic range finder",
- #                "Servo motor",
- #                "Servo controller",
- #                "Microcontroller Board",
- #                "Laser range finder",
- #                "Lithium polymer battery"]
-
-#product_prices = [2.50, 14.99, 44.95, 34.95, 149.99, 8.99]
-#product_quantities = [4, 10, 5, 7, 2, 8]
-
 class product:
     ID = 0
     quantity = 0
@@ -18,11 +8,11 @@ class product:
         self.price = p
         self.quantity = q
         
-    def inStock(self):
-        return self.quantity
+    def inStock(self, quantity):
+        return self.quantity >= quantity
     
-    def getStock(self, quantity):
-        return quantity < self.quantity
+    def getStock(self):
+        return self.quantity
     
     def totalCost(self):
         return self.quantity * self.price
@@ -33,14 +23,6 @@ class product:
     def getName(self):
         return self.name
 
-#class product(object):
-#   def __init__(name, price, quantity):
-#       name.price = price
-#        name.quantity = quantity
-#        
-#    def display(name):
-#       print(name.price)
-#       print(name.quantity)
 
 def print_stock(product_array):
     print("\nAvailable Products")
@@ -69,7 +51,7 @@ def main():
         prod_id = int(vals[0])
         count = int(vals[1])
         
-        if  product_array[prod_id].getStock(count): #>= count:
+        if product_array[prod_id].inStock(count): 
             if cash >= product_array[prod_id].totalCost():
                 product_array[prod_id].quantity * count
                 cash -= product_array[prod_id].price * count
